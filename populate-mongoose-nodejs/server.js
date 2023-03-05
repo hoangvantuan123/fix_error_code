@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-mongoose.connect('mongodb://127.0.0.1:27017/api', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://127.0.0.1:27017/date', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log("MONGO CONNECTION OPEN!!!")
     })
@@ -47,9 +47,6 @@ const insuranceSchema = mongoose.Schema({
 });
 
 const Insurance = mongoose.model("Insurance", insuranceSchema);
-
-
-
 const main = async () => {
     // Chèn tài liệu 
     const insertedInsurances = await Insurance.insertMany([
@@ -72,62 +69,9 @@ const main = async () => {
         post_id: insertedInsuranceIds,
     });
     console.log(insertedClaim);
-    // Output
-    /* {
-       _id: new ObjectId("63f9d41db1e46cfeb924678d"),
-    name: 'Hoang',
-    email: 'tuantuanhoang@gmail.com',
-    post_id: [
-      {
-        _id: new ObjectId("63f9d41db1e46cfeb9246786"),
-        title: 'Lorem1',
-        description: 'Lorem lorem 1',
-        markdown: ' text textttttt',
-        createdAt: 2023-02-25T09:25:49.730Z,
-        __v: 0
-      },
-      {
-        _id: new ObjectId("63f9d41db1e46cfeb9246787"),
-        title: 'Lorem2',
-        description: 'Lorem lorem 2',
-        markdown: ' text textttttt',
-        createdAt: 2023-02-25T09:25:49.732Z,
-        __v: 0
-      },
-      {
-        _id: new ObjectId("63f9d41db1e46cfeb9246788"),
-        title: 'Lorem3',
-        description: 'Lorem lorem 3',
-        markdown: ' text textttttt',
-        createdAt: 2023-02-25T09:25:49.732Z,
-        __v: 0
-      },
-      {
-        _id: new ObjectId("63f9d41db1e46cfeb9246789"),
-        title: 'Lorem4',
-        description: 'Lorem lorem 4',
-        markdown: ' text textttttt',
-        createdAt: 2023-02-25T09:25:49.733Z,
-        __v: 0
-      },
-      {
-        _id: new ObjectId("63f9d41db1e46cfeb924678a"),
-        title: 'Lorem5',
-        description: 'Lorem lorem 5',
-        markdown: ' text textttttt',
-        createdAt: 2023-02-25T09:25:49.733Z,
-        __v: 0
-      }
-    ],
-    createdAt: 2023-02-25T09:25:49.794Z,
-    __v: 0
-  } */
-
-    // Điền vào Tài liệu Yêu cầu với Bảo hiểm bằng cách sử dụng mảng ObjectID
     const popluatedClaim = await Claim.findById(insertedClaim._id).populate({
         path: "post_id",
     });
-   // console.log(popluatedClaim);
 };
 
 main();
